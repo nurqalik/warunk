@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -54,14 +54,17 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String               @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?              @unique
     emailVerified DateTime?
+    password      String?
     image         String?
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    product       Product[]
+    history       HistoryTransaction[]
 }
 
 model VerificationToken {
@@ -70,4 +73,69 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Product {
+    id                String              @id @default(cuid())
+    name              String
+    img               String
+    price             Float
+    stock             Int
+    categoryId        String
+    category          Category            @relation(fields: [categoryId], references: [id])
+    detailTransaction DetailTransaction[]
+
+    createdBy   User   @relation(fields: [createdById], references: [id])
+    createdById String
+
+    @@index([name])
+}
+
+model Category {
+    id      String    @id @default(cuid())
+    name    String
+    product Product[]
+}
+
+model Transaction {
+    id                 String               @id @default(cuid())
+    transactionOrder   String
+    currentStatus      Status
+    total              Float
+    customerName       String
+    customerPhone      String
+    detailTransaction  DetailTransaction[]
+    createdDate        DateTime             @default(now())
+    historyTransaction HistoryTransaction[]
+}
+
+model DetailTransaction {
+    id            String      @id @default(cuid())
+    quantity      Int
+    subTotal      Float
+    productId     String
+    transactionId String
+    product       Product     @relation(fields: [productId], references: [id])
+    transaction   Transaction @relation(fields: [transactionId], references: [id])
+}
+
+model HistoryTransaction {
+    id            String      @id @default(cuid())
+    status        Status
+    createDate    DateTime    @default(now())
+    transactionId String
+    userId        String
+    transaction   Transaction @relation(fields: [transactionId], references: [id])
+    user          User        @relation(fields: [userId], references: [id])
+}
+
+enum Status {
+    NEW
+    PROCESS
+    DONE
+}
+
+enum Role {
+    Admin
+    Customer
 }

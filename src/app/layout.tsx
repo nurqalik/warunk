@@ -5,6 +5,9 @@ import { headers } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
+import { ChakraProvider } from "@chakra-ui/react";
+import { NextAuthProvider } from "./_components/Next-Auth";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -24,7 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>
+        <ChakraProvider>
+          <NextAuthProvider>
+            <TRPCReactProvider headers={headers()}>
+              {children}
+            </TRPCReactProvider>
+          </NextAuthProvider>
+        </ChakraProvider>
       </body>
     </html>
   );
