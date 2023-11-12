@@ -94,14 +94,16 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
           ?.name ?? "",
       );
     }
+  }, [category, form, setCategory]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       window.location.reload()
     }, 1000)
     return () => {
       clearInterval(interval)
     }
-    
-  }, [category, form, setCategory]);
+  }, [])
 
   return (
     <>
