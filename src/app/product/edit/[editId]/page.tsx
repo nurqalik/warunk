@@ -161,7 +161,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
             <div className="mt-4 text-center text-sm font-thin">
               Note: Please reselect category and tab or click every field on
               form before submitting if you not doing that you might lost your
-              data.
+              data. If price and stock value empty please refresh page.
             </div>
           </div>
         </form>
