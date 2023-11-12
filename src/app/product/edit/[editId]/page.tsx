@@ -94,6 +94,13 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
           ?.name ?? "",
       );
     }
+    const interval = setInterval(() => {
+      window.location.reload()
+    }, 1000)
+    return () => {
+      clearInterval(interval)
+    }
+    
   }, [category, form, setCategory]);
 
   return (
