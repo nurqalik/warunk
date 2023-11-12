@@ -96,15 +96,6 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
     }
   }, [category, form, setCategory]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      window.location.reload()
-    }, 1000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
-
   return (
     <>
       <div className="flex h-full w-full flex-col px-16">
