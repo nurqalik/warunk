@@ -32,8 +32,6 @@ const formProduct = z.object({
 const EditProduct = ({ params }: { params: { editId: string } }) => {
   const [category, setCategory] = useState<Category[]>([]);
   const [oldCategory, setOldCategory] = useState<string>("Select Category");
-  const [price, setPrice] = useState<number>(0);
-  const [stock, setStock] = useState<number>(0);
   const { register, handleSubmit } = useForm<Product>();
   const toast = useToast();
   const router = useRouter();
@@ -96,11 +94,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
           ?.name ?? "",
       );
     }
-    if (form.getValues("price") != 0 && form.getValues("stock") != 0) {
-      setPrice(form.getValues("price"));
-      setStock(form.getValues("stock"));
-    }
-  }, [category, form, setCategory, setPrice, setStock]);
+  }, [category, form, setCategory]);
 
   return (
     <>
@@ -128,7 +122,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
               <InputLeftAddon>{"Rp."}</InputLeftAddon>
               <Input
                 type="number"
-                defaultValue={price}
+                defaultValue={form.getValues("price")}
                 min={1}
                 isRequired
                 {...register("price", { required: true, valueAsNumber: true })}
@@ -138,7 +132,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
               <InputLeftAddon>{"Stock"}</InputLeftAddon>
               <Input
                 type="number"
-                defaultValue={stock}
+                defaultValue={form.getValues("stock")}
                 min={1}
                 isRequired
                 {...register("stock", { required: true, valueAsNumber: true })}
