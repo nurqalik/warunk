@@ -32,6 +32,7 @@ const formProduct = z.object({
 const EditProduct = ({ params }: { params: { editId: string } }) => {
   const [category, setCategory] = useState<Category[]>([]);
   const [oldCategory, setOldCategory] = useState<string>("Select Category");
+  const [product, setProduct] = useState<Product>();
   const { register, handleSubmit } = useForm<Product>();
   const toast = useToast();
   const router = useRouter();
@@ -78,12 +79,14 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
   };
 
   const { isLoading: isFetching } = api.product.getOne.useQuery(String(id), {
-    onSuccess: (data) => {
-      form.setValue("name", data?.name ?? "");
-      form.setValue("img", data?.img ?? "");
-      form.setValue("price", data?.price ?? 0);
-      form.setValue("stock", data?.stock ?? 0);
-      form.setValue("categoryId", data?.categoryId ?? "");
+    onSuccess: (data: Product) => {
+      setProduct({
+        name: data?.name,
+        img: data?.img,
+        price: data?.price,
+        stock: data?.stock,
+        categoryId: data?.categoryId,
+      } as Product);
     },
   });
 
@@ -106,7 +109,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
               <InputLeftAddon>{"Product Name"}</InputLeftAddon>
               <Input
                 type="text"
-                defaultValue={form.getValues("name")}
+                defaultValue={product?.name}
                 {...register("name", { required: true })}
               />
             </InputGroup>
@@ -114,7 +117,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
               <InputLeftAddon>{"Image Url"}</InputLeftAddon>
               <Input
                 type="text"
-                defaultValue={form.getValues("img")}
+                defaultValue={product?.img}
                 {...register("img", { required: true })}
               />
             </InputGroup>
@@ -122,7 +125,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
               <InputLeftAddon>{"Rp."}</InputLeftAddon>
               <Input
                 type="number"
-                defaultValue={form.getValues("price")}
+                defaultValue={product?.price}
                 min={1}
                 isRequired
                 {...register("price", { required: true, valueAsNumber: true })}
@@ -132,7 +135,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
               <InputLeftAddon>{"Stock"}</InputLeftAddon>
               <Input
                 type="number"
-                defaultValue={form.getValues("stock")}
+                defaultValue={product?.stock}
                 min={1}
                 isRequired
                 {...register("stock", { required: true, valueAsNumber: true })}
@@ -140,7 +143,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
             </InputGroup>
             <Select
               placeholder={oldCategory}
-              defaultValue={form.getValues("categoryId")}
+              defaultValue={product?.categoryId}
               {...register("categoryId", { required: true })}
             >
               {category.map((item: Category) => (
