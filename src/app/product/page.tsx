@@ -69,7 +69,7 @@ const ProductPage = () => {
   });
 
   useEffect(() => {
-    undefined
+    product
   }, [product])
 
   return (
