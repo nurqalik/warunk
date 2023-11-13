@@ -84,6 +84,34 @@ export const productRouter = createTRPCRouter({
         return product;
       }
     }),
+  updateStock: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        stock: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      let product: Product | null;
+      if (input.id) {
+        product = await ctx.db.product.findUnique({
+          where: {
+            id: input.id,
+          },
+        });
+        if (product) {
+          product = await ctx.db.product.update({
+            data: {
+              stock: product.stock + input.stock,
+            },
+            where: {
+              id: product.id,
+            },
+          });
+        }
+        return product;
+      }
+    }),
   deleteProduct: protectedProcedure
     .input(
       z.object({

@@ -80,6 +80,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
 
   const { isLoading: isFetching } = api.product.getOne.useQuery(String(id), {
     onSuccess: (data: Product) => {
+      form.setValue("categoryId", data?.categoryId ?? '')
       setProduct({
         name: data?.name,
         img: data?.img,
@@ -143,7 +144,7 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
             </InputGroup>
             <Select
               placeholder={oldCategory}
-              defaultValue={product?.categoryId}
+              defaultValue={form.getValues("categoryId")}
               {...register("categoryId", { required: true })}
             >
               {category.map((item: Category) => (

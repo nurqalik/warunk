@@ -12,7 +12,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import type { Product } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { AlertDialog, AlertDialogTrigger } from "../_components/alert";
 import AlertDelete from "../_components/alert-delete";
 import MoneyFormatter from "../_components/money-formatter";
+import UpdateStock from "../_components/update-stoc";
 
 interface ProductDetail extends Product {
   categoryName: string;
@@ -67,6 +68,8 @@ const ProductPage = () => {
       ),
   });
 
+  useEffect(() => {}, [product])
+
   return (
     <>
       <TableContainer>
@@ -101,7 +104,7 @@ const ProductPage = () => {
                   />
                 </Td>
                 <Td><MoneyFormatter value={item.price}/></Td>
-                <Td>{item.stock}</Td>
+                <Td>{item.stock} <UpdateStock id={item.id} name={item.name}/></Td>
                 <Td>{item.categoryName}</Td>
                 <Td>
                   <div className="flex flex-row gap-x-2">
