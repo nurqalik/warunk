@@ -68,7 +68,9 @@ const ProductPage = () => {
       ),
   });
 
-  useEffect(() => {}, [product])
+  useEffect(() => {
+    console.log(product)
+  }, [product])
 
   return (
     <>
