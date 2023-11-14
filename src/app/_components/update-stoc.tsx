@@ -1,6 +1,6 @@
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Product } from "@prisma/client"
+import { $Enums, Product } from "@prisma/client"
 import { FormEvent, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -31,6 +31,12 @@ const UpdateStock = (props: adstock) => {
     // console.log(stock)
   }
 
+  const onKeyPress = (e: React.KeyboardEvent) => {
+    if(e.which === 13) {
+      document.getElementById('submit')?.click()
+    }
+  }
+
   return (
     <>
       <Button onClick={onOpen}>+</Button>
@@ -45,12 +51,12 @@ const UpdateStock = (props: adstock) => {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>{props.name}</FormLabel>
-              <Input type="number" min={1} isRequired placeholder='0' value={stock} onChange={(e: React.FormEvent<HTMLInputElement>) => setStock(e.currentTarget.valueAsNumber)} />
+              <Input type="number" onKeyPress={onKeyPress} min={1} isRequired placeholder='0' value={stock} onChange={(e: React.FormEvent<HTMLInputElement>) => setStock(e.currentTarget.valueAsNumber)} />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} isLoading={isLoading} loadingText="Adding stock" spinnerPlacement="start" onClick={() => onSubmit()}>
+            <Button colorScheme='blue' id='submit' mr={3} isLoading={isLoading} loadingText="Adding stock" spinnerPlacement="start" onClick={() => onSubmit()}>
               Submit
             </Button>
             <Button onClick={onClose}>Cancel</Button>
