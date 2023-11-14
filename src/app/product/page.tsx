@@ -75,8 +75,8 @@ const ProductPage = () => {
   return (
     <>
       <TableContainer>
-        <Table variant="unstyled">
-          <TableCaption>{product.length != 0 ? 'Product List' : 'No Product Left, Please Add Product Before.'} <br/><Button variant='solid' colorScheme="blue" onClick={() => router.push(`/product/add`)} className="mt-2">Add New Product</Button></TableCaption>
+        <Table variant="unstyled" className="w-full">
+          <TableCaption fontSize={'xs'}>{product.length != 0 ? 'Product List' : 'No Product Left, Please Add Product Before.'} <br/><Button variant='solid' colorScheme="blue" fontSize={'xs'} onClick={() => router.push(`/product/add`)} className="mt-2">Add New Product</Button></TableCaption>
           <Thead>
             <Tr>
               <Th>No</Th>
@@ -91,9 +91,9 @@ const ProductPage = () => {
           <Tbody>
             {product.map((item, index) => (
               <Tr key={item.id}>
-                <Td>{index + 1}</Td>
-                <Td>
-                  <Link href={`/product/edit/${item.id}`}>{item.name}</Link>
+                <Td fontSize={"sm"}>{index + 1}</Td>
+                <Td  fontSize={"sm"}>
+                  {item.name}
                 </Td>
                 <Td>
                   <img
@@ -102,16 +102,17 @@ const ProductPage = () => {
                     height={0}
                     sizes="100"
                     alt=""
-                    className="h-40 w-40 object-contain"
+                    className="h-20 w-20 object-contain"
                   />
                 </Td>
-                <Td><MoneyFormatter value={item.price}/></Td>
-                <Td>{item.stock} <UpdateStock id={item.id} name={item.name}/></Td>
-                <Td>{item.categoryName}</Td>
+                <Td fontSize={"sm"}><MoneyFormatter value={item.price}/></Td>
+                <Td  fontSize={"sm"}>{item.stock} <UpdateStock id={item.id} name={item.name}/></Td>
+                <Td fontSize={"sm"}>{item.categoryName}</Td>
                 <Td>
                   <div className="flex flex-row gap-x-2">
                     <AlertDialog>
                       <Button
+                        fontSize={"xs"}
                         variant="outline"
                         colorScheme="blue"
                         onClick={() => item.actionEdit(item.id)}
@@ -119,7 +120,7 @@ const ProductPage = () => {
                         Edit
                       </Button>
                       <AlertDialogTrigger className="flex w-full">
-                        <Button variant="solid" colorScheme="red">
+                        <Button variant="solid" colorScheme="red" fontSize={"xs"}>
                           Delete
                         </Button>
                       </AlertDialogTrigger>

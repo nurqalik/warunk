@@ -39,27 +39,28 @@ const UpdateStock = (props: adstock) => {
 
   return (
     <>
-      <Button onClick={onOpen}>+</Button>
+      <Button onClick={onOpen} fontSize={'sm'} margin={"2"} rounded={"full"}>+</Button>
       <Modal
         isOpen={isOpen}
         onClose={onClose}
+        size={"xs"}
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add Stock</ModalHeader>
+          <ModalHeader fontSize={'sm'}>Add Stock</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>{props.name}</FormLabel>
-              <Input type="number" onKeyPress={onKeyPress} min={1} isRequired placeholder='0' value={stock} onChange={(e: React.FormEvent<HTMLInputElement>) => setStock(e.currentTarget.valueAsNumber)} />
+              <FormLabel fontSize={'sm'}>{props.name}</FormLabel>
+              <Input type="number" fontSize={'sm'} onKeyPress={onKeyPress} min={1} isRequired placeholder='0' value={stock} onChange={(e: React.FormEvent<HTMLInputElement>) => setStock(e.currentTarget.valueAsNumber)} />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' id='submit' mr={3} isLoading={isLoading} loadingText="Adding stock" spinnerPlacement="start" onClick={() => onSubmit()}>
+            <Button colorScheme='blue' id='submit' fontSize={'sm'} mr={3} isLoading={isLoading} loadingText="Adding stock" spinnerPlacement="start" onClick={() => onSubmit()}>
               Submit
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose} fontSize={'sm'}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

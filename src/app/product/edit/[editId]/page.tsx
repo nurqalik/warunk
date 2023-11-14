@@ -103,29 +103,32 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
   return (
     <>
       <div className="flex h-full w-full flex-col px-16">
-        <div className="mb-4 text-center text-3xl font-bold">Edit Product</div>
+        <div className="mb-4 text-center text-xl md:text-3xl font-bold mt-24">Edit Product</div>
         <form action="submit" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-y-2">
             <InputGroup>
-              <InputLeftAddon>{"Product Name"}</InputLeftAddon>
+              <InputLeftAddon fontSize={'xs'}>{"Product Name"}</InputLeftAddon>
               <Input
                 type="text"
+                fontSize={'xs'}
                 defaultValue={product?.name}
                 {...register("name", { required: true })}
               />
             </InputGroup>
             <InputGroup>
-              <InputLeftAddon>{"Image Url"}</InputLeftAddon>
+              <InputLeftAddon fontSize={'xs'}>{"Image Url"}</InputLeftAddon>
               <Input
                 type="text"
+                fontSize={'xs'}
                 defaultValue={product?.img}
                 {...register("img", { required: true })}
               />
             </InputGroup>
             <InputGroup>
-              <InputLeftAddon>{"Rp."}</InputLeftAddon>
+              <InputLeftAddon fontSize={'xs'}>{"Rp."}</InputLeftAddon>
               <Input
                 type="number"
+                fontSize={'xs'}
                 defaultValue={product?.price}
                 min={1}
                 isRequired
@@ -133,9 +136,10 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
               />
             </InputGroup>
             <InputGroup>
-              <InputLeftAddon>{"Stock"}</InputLeftAddon>
+              <InputLeftAddon fontSize={'xs'}>{"Stock"}</InputLeftAddon>
               <Input
                 type="number"
+                fontSize={'xs'}
                 defaultValue={product?.stock}
                 min={1}
                 isRequired
@@ -144,17 +148,19 @@ const EditProduct = ({ params }: { params: { editId: string } }) => {
             </InputGroup>
             <Select
               placeholder={oldCategory}
+              fontSize={'xs'}
               defaultValue={form.getValues("categoryId")}
               {...register("categoryId", { required: true })}
             >
               {category.map((item: Category) => (
-                <option value={item.id} key={item.id}>
+                <option value={item.id} key={item.id} className="text-xs">
                   {item.name}
                 </option>
               ))}
             </Select>
             <Button
               colorScheme="blue"
+              fontSize={'xs'}
               type="submit"
               isLoading={isFetching || isLoading}
               loadingText={isFetching ? "Get Data" : "Submitting"}

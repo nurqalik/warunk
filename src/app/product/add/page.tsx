@@ -53,23 +53,26 @@ const AddProduct = () => {
   return (
     <>
       <div className="flex h-full w-full flex-col px-16">
-        <div className="mb-4 text-center text-3xl font-bold">Add Product</div>
+        <div className="mb-4 text-center text-xl md:text-3xl font-bold mt-24">Add Product</div>
         <form action="submit" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-y-2">
             <Input
               type="text"
+              fontSize={"xs"}
               placeholder="Product name"
               {...register("name", { required: true })}
             />
             <Input
               type="text"
+              fontSize={"xs"}
               placeholder="Image url"
               {...register("img", { required: true })}
             />
             <InputGroup>
-              <InputLeftAddon>{"Rp."}</InputLeftAddon>
+              <InputLeftAddon fontSize={"xs"}>{"Rp."}</InputLeftAddon>
               <Input
                 type="number"
+                fontSize={"xs"}
                 defaultValue={0}
                 {...register("price", {
                   required: true,
@@ -78,9 +81,10 @@ const AddProduct = () => {
               />
             </InputGroup>
             <InputGroup>
-              <InputLeftAddon>{"Stock"}</InputLeftAddon>
+              <InputLeftAddon fontSize={"xs"}>{"Stock"}</InputLeftAddon>
               <Input
                 type="number"
+                fontSize={"xs"}
                 defaultValue={0}
                 {...register("stock", {
                   required: true,
@@ -90,16 +94,18 @@ const AddProduct = () => {
             </InputGroup>
             <Select
               placeholder="Select category"
+              fontSize={"xs"}
               {...register("categoryId", { required: true })}
             >
               {category.map((item: Category) => (
-                <option value={item.id} key={item.id}>
+                <option value={item.id} key={item.id} className="text-xs">
                   {item.name}
                 </option>
               ))}
             </Select>
             <Button
               colorScheme="blue"
+              fontSize={"xs"}
               type="submit"
               isLoading={isLoading}
               loadingText="Creating Product"
