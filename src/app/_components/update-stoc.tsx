@@ -53,6 +53,7 @@ const UpdateStock = (props: adstock) => {
             <FormControl>
               <FormLabel fontSize={'sm'}>{props.name}</FormLabel>
               <Input type="number" fontSize={'sm'} onKeyPress={onKeyPress} min={1} isRequired placeholder='0' value={stock} onChange={(e: React.FormEvent<HTMLInputElement>) => setStock(e.currentTarget.valueAsNumber)} />
+              <div className="text-xs font-thin text-center mt-2">If stock didn't increase please refresh the page.</div>
             </FormControl>
           </ModalBody>
 
