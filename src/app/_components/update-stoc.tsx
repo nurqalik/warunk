@@ -1,9 +1,5 @@
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from "@chakra-ui/react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { $Enums, Product } from "@prisma/client"
-import { FormEvent, useRef, useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { useState } from "react"
 import { api } from "~/trpc/react"
 
 interface adstock {
@@ -53,7 +49,7 @@ const UpdateStock = (props: adstock) => {
             <FormControl>
               <FormLabel fontSize={'sm'}>{props.name}</FormLabel>
               <Input type="number" fontSize={'sm'} onKeyPress={onKeyPress} min={1} isRequired placeholder='0' value={stock} onChange={(e: React.FormEvent<HTMLInputElement>) => setStock(e.currentTarget.valueAsNumber)} />
-              <div className="text-xs font-thin text-center mt-2">If stock didn't increase please refresh the page.</div>
+              <div className="text-xs font-thin text-center mt-2">If stock didn&apos;t increase please refresh the page.</div>
             </FormControl>
           </ModalBody>
 

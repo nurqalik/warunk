@@ -15,7 +15,6 @@ import type { Product } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AlertDialog, AlertDialogTrigger } from "../_components/alert";
 import AlertDelete from "../_components/alert-delete";
